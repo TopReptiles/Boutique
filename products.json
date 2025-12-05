@@ -1,38 +1,23 @@
-fetch('products.json?' + new Date().getTime())
-  .then(res => res.json())
-  .then(products => {
-    const list = document.getElementById('product-list');
-    list.innerHTML = products.map(p => `
-      <div class="product">
-        <img src="${p.image}" alt="${p.name}">
-        <h3>${p.name}</h3>
-        <p>${p.description}</p>
-        <p>${p.price}€</p>
-        <button onclick="addToCart(${p.id})">Ajouter au panier</button>
-      </div>
-    `).join('');
-  })
-  .catch(err => console.error('Erreur de chargement des produits:', err));
 [
   {
     "id": 1,
     "name": "Création entrée de gamme",
     "price": 10,
     "description": "Service simple pour découvrir nos créations sur toile de jute.",
-    "image": "https://images.unsplash.com/photo-1603791440384-56cd371ee9c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI5ODB8MHwxfHNlYXJjaHwxfHx0b2lsZSUyMGRlJTIwanV0ZXxlbnwwfHx8fDE2OTk0MjQ5MDU&ixlib=rb-4.0.3&q=80&w=400"
+    "image": "https://images.unsplash.com/photo-1603791440384-56cd371ee9c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
   },
   {
     "id": 2,
     "name": "Création milieu de gamme",
     "price": 25,
     "description": "Création personnalisée de qualité supérieure sur toile de jute.",
-    "image": "https://images.unsplash.com/photo-1598133894000-f2fa389c8b3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI5ODB8MHwxfHNlYXJjaHwzfHx0b2lsZSUyMGRlJTIwanV0ZXxlbnwwfHx8fDE2OTk0MjQ5MDU&ixlib=rb-4.0.3&q=80&w=400"
+    "image": "https://images.unsplash.com/photo-1598133894000-f2fa389c8b3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
   },
   {
     "id": 3,
     "name": "Création haut de gamme",
     "price": 50,
     "description": "Création premium sur mesure pour vos projets sur toile de jute.",
-    "image": "https://images.unsplash.com/photo-1611078486200-6348c9d3c57c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI5ODB8MHwxfHNlYXJjaHw0fHx0b2lsZSUyMGRlJTIwanV0ZXxlbnwwfHx8fDE2OTk0MjQ5MDU&ixlib=rb-4.0.3&q=80&w=400"
+    "image": "https://images.unsplash.com/photo-1611078486200-6348c9d3c57c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
   }
 ]
