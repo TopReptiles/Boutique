@@ -92,3 +92,27 @@ function removeItem(index) {
 function checkout() {
   alert("Ici on branchera PayPal ensuite 😄");
 }
+document.addEventListener("DOMContentLoaded", function () {
+  // ... ton code actuel pour les produits ici ...
+
+  // === Diaporama du fond de la section hero ===
+  const hero = document.getElementById("hero");
+  if (hero) {
+    const heroImages = [
+      "images/hero1.jpg",
+      "images/hero2.jpg",
+      "images/hero3.jpg"
+    ];
+
+    let current = 0;
+
+    // image de départ
+    hero.style.backgroundImage = `url(${heroImages[current]})`;
+
+    setInterval(() => {
+      current = (current + 1) % heroImages.length;
+      hero.style.backgroundImage = `url(${heroImages[current]})`;
+    }, 5000); // change toutes les 5 secondes
+  }
+});
+
