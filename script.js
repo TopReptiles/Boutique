@@ -101,7 +101,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const heroImages = [
       "images/hero1.jpg",
       "images/hero2.jpg",
-      "images/hero3.jpg"
+      "images/hero3.jpg",
+      "images/hero4.jpg"
     ];
 
     let current = 0;
