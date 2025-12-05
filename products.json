@@ -2,22 +2,22 @@
   {
     "id": 1,
     "name": "Création entrée de gamme",
-    "price": 10.5,
-    "description": "Service de création simple, idéal pour les petits budgets.",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToaeo8oVucURXb0dvj-1sXKmDKZboe_nQeyg&s"
+    "price": 10,
+    "description": "Service simple pour découvrir nos créations sur toile de jute.",
+    "image": "https://images.unsplash.com/photo-1603791440384-56cd371ee9c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI5ODB8MHwxfHNlYXJjaHwxfHx0b2lsZSUyMGRlJTIwanV0ZXxlbnwwfHx8fDE2OTk0MjQ5MDU&ixlib=rb-4.0.3&q=80&w=400"
   },
   {
     "id": 2,
     "name": "Création milieu de gamme",
     "price": 25,
-    "description": "Création personnalisée, qualité supérieure.",
-    "image": "https://picsum.photos/300?random=22"
+    "description": "Création personnalisée de qualité supérieure sur toile de jute.",
+    "image": "https://images.unsplash.com/photo-1598133894000-f2fa389c8b3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI5ODB8MHwxfHNlYXJjaHwzfHx0b2lsZSUyMGRlJTIwanV0ZXxlbnwwfHx8fDE2OTk0MjQ5MDU&ixlib=rb-4.0.3&q=80&w=400"
   },
   {
     "id": 3,
     "name": "Création haut de gamme",
     "price": 50,
-    "description": "Création premium totalement sur mesure.",
-    "image": "https://picsum.photos/300?random=23"
+    "description": "Création premium sur mesure pour vos projets sur toile de jute.",
+    "image": "https://images.unsplash.com/photo-1611078486200-6348c9d3c57c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTI5ODB8MHwxfHNlYXJjaHw0fHx0b2lsZSUyMGRlJTIwanV0ZXxlbnwwfHx8fDE2OTk0MjQ5MDU&ixlib=rb-4.0.3&q=80&w=400"
   }
 ]
