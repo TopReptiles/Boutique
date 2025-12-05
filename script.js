@@ -1,6 +1,6 @@
 // Charger les produits
 if (document.getElementById("product-list")) {
-  fetch("products.json")
+  fetch("products.json?" + new Date().getTime())
     .then(res => res.json())
     .then(products => {
       const list = document.getElementById("product-list");
