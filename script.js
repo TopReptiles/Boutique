@@ -1,22 +1,4 @@
-// Charger les produits
-if (document.getElementById("product-list")) {
-  fetch("products.json?" + new Date().getTime())
-    .then(res => res.json())
-    .then(products => {
-      const list = document.getElementById("product-list");
-      list.innerHTML = products.map(p => `
-        <div class="product">
-          <img src="${p.image}">
-          <h3>${p.name}</h3>
-          <p>${p.description}</p>
-          <h2>${p.price}€</h2>
-          <button onclick="addToCart(${p.id})">Ajouter au panier</button>
-        </div>
-      `).join("");
-    });
-}
-
-// Panier
+// --- Ajouter au panier ---
 function addToCart(id) {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   cart.push(id);
@@ -24,26 +6,44 @@ function addToCart(id) {
   alert("Ajouté au panier !");
 }
 
-// Afficher le panier
-if (document.getElementById("cart")) {
-  fetch("products.json")
+// --- Afficher le panier ---
+function renderCart() {
+  fetch("products.json?" + new Date().getTime()) // cache-buster
     .then(res => res.json())
     .then(products => {
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      let container = document.getElementById("cart");
+      const container = document.getElementById("cart");
       let total = 0;
 
-      container.innerHTML = cart.map(id => {
-        let p = products.find(x => x.id === id);
-        total += p.price;
-        return `<div class="item">${p.name} - ${p.price}€</div>`;
+      container.innerHTML = cart.map((id, index) => {
+        const product = products.find(p => p.id === id);
+        total += product.price;
+        return `
+          <div class="item">
+            <span>${product.name} - ${product.price}€</span>
+            <button onclick="removeItem(${index})">Supprimer</button>
+          </div>
+        `;
       }).join("");
 
       document.getElementById("total").innerText = "Total : " + total + "€";
     });
 }
 
-// Paiement (à activer plus tard)
+// --- Supprimer un article ---
+function removeItem(index) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.splice(index, 1); // supprime l'article
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart(); // ré-affiche le panier
+}
+
+// --- Paiement (PayPal ou autre) ---
 function checkout() {
-  alert("On va ajouter Stripe ensuite !");
+  alert("Bouton PayPal à configurer ici !");
+}
+
+// --- Si on est sur la page panier ---
+if (document.getElementById("cart")) {
+  renderCart();
 }
