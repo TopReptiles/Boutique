@@ -115,4 +115,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 5000); // change toutes les 5 secondes
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const heroImgs = [
+    "images/hero1.png",
+    "images/hero2.jpg",
+    "images/hero3.jpg"
+  ];
+
+  let current = 0;
+  const hero = document.getElementById("hero");
+
+  function changeHero() {
+    hero.style.backgroundImage = `url('${heroImgs[current]}')`;
+    current = (current + 1) % heroImgs.length;
+  }
+
+  changeHero();          // image au chargement
+  setInterval(changeHero, 5000); // change toutes les 5 sec
+});
 
