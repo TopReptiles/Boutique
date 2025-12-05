@@ -66,3 +66,23 @@ function checkout() {
 if(document.getElementById('cart')) {
   document.addEventListener('DOMContentLoaded', renderCart);
 }
+document.addEventListener("DOMContentLoaded", function() {
+  // Vérifie si on est sur la page d'accueil
+  const productList = document.getElementById('product-list');
+  if (productList) {
+    fetch('products.json?' + new Date().getTime())
+      .then(response => response.json())
+      .then(products => {
+        productList.innerHTML = products.map(p => `
+          <div class="product">
+            <img src="${p.image}" alt="${p.name}">
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            <p>${p.price}€</p>
+            <button onclick="addToCart(${p.id})">Ajouter au panier</button>
+          </div>
+        `).join('');
+      })
+      .catch(error => console.error('Erreur lors du chargement des produits:', error));
+  }
+});
