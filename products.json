@@ -4,20 +4,20 @@
     "name": "Création entrée de gamme",
     "price": 10,
     "description": "Service simple pour découvrir nos créations sur toile de jute.",
-    "image": "https://images.unsplash.com/photo-1603791440384-56cd371ee9c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNlHTLSUjFe-LP-IhIVSbNoVzx5WF6WHTHUA&s"
   },
   {
     "id": 2,
     "name": "Création milieu de gamme",
     "price": 25,
     "description": "Création personnalisée de qualité supérieure sur toile de jute.",
-    "image": "https://images.unsplash.com/photo-1598133894000-f2fa389c8b3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAUl2pNULnjbvr-vrO9d3-xBSINt3NE87YDA&s"
   },
   {
     "id": 3,
     "name": "Création haut de gamme",
     "price": 50,
     "description": "Création premium sur mesure pour vos projets sur toile de jute.",
-    "image": "https://images.unsplash.com/photo-1611078486200-6348c9d3c57c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7EF4MFv7ijNFlZkkBrNXm7-c5P3vv28ouMg&s"
   }
 ]
