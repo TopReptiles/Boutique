@@ -1,4 +1,4 @@
-// Ce code se lance quand la page est chargée
+// Code principal au chargement de la page
 document.addEventListener("DOMContentLoaded", function () {
   // 1) Page d'accueil => on charge les produits
   const productList = document.getElementById("product-list");
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const hero = document.getElementById("hero");
   if (hero) {
     const heroImgs = [
-      "images/hero1.png", // adapte les extensions selon ton dossier
+      "images/hero1.png", // adapte aux vraies extensions
       "images/hero2.jpg",
       "images/hero3.jpg",
       "images/hero4.jpg"
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // ----------------------
-// AJOUTER AU PANIER
+// PANIER : ajouter
 // ----------------------
 function addToCart(id) {
   let cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -69,7 +69,7 @@ function addToCart(id) {
 }
 
 // ----------------------
-// AFFICHER LE PANIER
+// PANIER : afficher
 // ----------------------
 function renderCart() {
   fetch("products.json?" + new Date().getTime())
@@ -104,7 +104,7 @@ function renderCart() {
 }
 
 // ----------------------
-// SUPPRIMER UN ARTICLE
+// PANIER : supprimer un article
 // ----------------------
 function removeItem(index) {
   let cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -114,22 +114,21 @@ function removeItem(index) {
 }
 
 // ----------------------
-// BOUTON PAIEMENT (future intégration PayPal)
+// PAIEMENT (placeholder)
 // ----------------------
 function checkout() {
   alert("Ici on branchera PayPal ensuite 😄");
 }
 
 // ----------------------
-// OUVRIR LA FICHE PRODUIT
+// FICHE PRODUIT : redirection
 // ----------------------
 function viewProduct(id) {
-  // redirige vers product.html en passant l'id dans l'URL
   window.location.href = "product.html?id=" + id;
 }
 
 // ----------------------
-// CHARGER UNE FICHE PRODUIT
+// FICHE PRODUIT : chargement
 // ----------------------
 function loadProductPage() {
   const params = new URLSearchParams(window.location.search);
