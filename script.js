@@ -1,9 +1,9 @@
 // Ce code se lance quand la page est chargée
 document.addEventListener("DOMContentLoaded", function () {
-  // 1) SI on est sur la page d'accueil => on charge les produits
+  // 1) Page d'accueil => on charge les produits
   const productList = document.getElementById("product-list");
   if (productList) {
-    fetch("products.json?" + new Date().getTime()) // pour éviter le cache
+    fetch("products.json?" + new Date().getTime()) // éviter le cache
       .then((response) => response.json())
       .then((products) => {
         productList.innerHTML = products
@@ -26,21 +26,21 @@ document.addEventListener("DOMContentLoaded", function () {
       );
   }
 
-  // 2) SI on est sur la page panier => on affiche le panier
+  // 2) Page panier => afficher le panier
   if (document.getElementById("cart")) {
     renderCart();
   }
 
-  // 3) SI on est sur la page fiche produit => on affiche le détail
+  // 3) Page fiche produit => charger le détail
   if (document.getElementById("product-detail")) {
     loadProductPage();
   }
 
-  // 4) DIAPORAMA DU HERO
+  // 4) Diaporama du hero
   const hero = document.getElementById("hero");
   if (hero) {
     const heroImgs = [
-      "images/hero1.png", // adapte bien aux vraies extensions
+      "images/hero1.png", // adapte les extensions selon ton dossier
       "images/hero2.jpg",
       "images/hero3.jpg",
       "images/hero4.jpg"
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
       current = (current + 1) % heroImgs.length;
     }
 
-    changeHero();                 // première image
+    changeHero();                  // première image
     setInterval(changeHero, 5000); // change toutes les 5 sec
   }
 });
@@ -114,7 +114,7 @@ function removeItem(index) {
 }
 
 // ----------------------
-// BOUTON PAIEMENT
+// BOUTON PAIEMENT (future intégration PayPal)
 // ----------------------
 function checkout() {
   alert("Ici on branchera PayPal ensuite 😄");
@@ -135,9 +135,9 @@ function loadProductPage() {
   const params = new URLSearchParams(window.location.search);
   const id = parseInt(params.get("id"), 10);
 
-  if (!id) {
-    document.getElementById("product-detail").innerHTML =
-      "<p>Produit introuvable.</p>";
+  const container = document.getElementById("product-detail");
+  if (!id || !container) {
+    if (container) container.innerHTML = "<p>Produit introuvable.</p>";
     return;
   }
 
@@ -145,7 +145,6 @@ function loadProductPage() {
     .then((res) => res.json())
     .then((products) => {
       const product = products.find((p) => p.id === id);
-      const container = document.getElementById("product-detail");
 
       if (!product) {
         container.innerHTML = "<p>Produit introuvable.</p>";
