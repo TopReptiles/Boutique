@@ -133,6 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   changeHero();          // image au chargement
-  setInterval(changeHero, 8000); // change toutes les 5 sec
+  setInterval(changeHero, 5000); // change toutes les 5 sec
 });
 
