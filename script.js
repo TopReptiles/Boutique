@@ -29,6 +29,27 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("cart")) {
     renderCart();
   }
+
+  // 3) DIAPORAMA DU HERO
+  const hero = document.getElementById("hero");
+  if (hero) {
+    const heroImgs = [
+      "images/hero1.png", // adapte bien à l'extension réelle
+      "images/hero2.jpg",
+      "images/hero3.jpg",
+      "images/hero4.jpg"
+    ];
+
+    let current = 0;
+
+    function changeHero() {
+      hero.style.backgroundImage = `url('${heroImgs[current]}')`;
+      current = (current + 1) % heroImgs.length;
+    }
+
+    changeHero();                 // première image au chargement
+    setInterval(changeHero, 5000); // change toutes les 5 sec (change 5000 si tu veux plus)
+  }
 });
 
 // ----------------------
@@ -92,47 +113,3 @@ function removeItem(index) {
 function checkout() {
   alert("Ici on branchera PayPal ensuite 😄");
 }
-document.addEventListener("DOMContentLoaded", function () {
-  // ... ton code actuel pour les produits ici ...
-
-  // === Diaporama du fond de la section hero ===
-  const hero = document.getElementById("hero");
-  if (hero) {
-    const heroImages = [
-      "images/hero1.jpg",
-      "images/hero2.jpg",
-      "images/hero3.jpg",
-      "images/hero4.jpg"
-    ];
-
-    let current = 0;
-
-    // image de départ
-    hero.style.backgroundImage = `url(${heroImages[current]})`;
-
-    setInterval(() => {
-      current = (current + 1) % heroImages.length;
-      hero.style.backgroundImage = `url(${heroImages[current]})`;
-    }, 5000); // change toutes les 5 secondes
-  }
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const heroImgs = [
-    "images/hero1.png",
-    "images/hero2.jpg",
-    "images/hero3.jpg",
-    "images/hero4.jpg"
-  ];
-
-  let current = 0;
-  const hero = document.getElementById("hero");
-
-  function changeHero() {
-    hero.style.backgroundImage = `url('${heroImgs[current]}')`;
-    current = (current + 1) % heroImgs.length;
-  }
-
-  changeHero();          // image au chargement
-  setInterval(changeHero, 5000); // change toutes les 5 sec
-});
-
