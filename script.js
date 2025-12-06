@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <p>${p.description}</p>
             <p>${p.price}€</p>
             <button onclick="addToCart(${p.id})">Ajouter au panier</button>
+            <button onclick="viewProduct(${p.id})">Voir +</button>
           </div>
         `
           )
@@ -30,11 +31,16 @@ document.addEventListener("DOMContentLoaded", function () {
     renderCart();
   }
 
-  // 3) DIAPORAMA DU HERO
+  // 3) SI on est sur la page fiche produit => on affiche le détail
+  if (document.getElementById("product-detail")) {
+    loadProductPage();
+  }
+
+  // 4) DIAPORAMA DU HERO
   const hero = document.getElementById("hero");
   if (hero) {
     const heroImgs = [
-      "images/hero1.png", // adapte bien à l'extension réelle
+      "images/hero1.png", // adapte bien aux vraies extensions
       "images/hero2.jpg",
       "images/hero3.jpg",
       "images/hero4.jpg"
@@ -47,8 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
       current = (current + 1) % heroImgs.length;
     }
 
-    changeHero();                 // première image au chargement
-    setInterval(changeHero, 5000); // change toutes les 5 sec (change 5000 si tu veux plus)
+    changeHero();                 // première image
+    setInterval(changeHero, 5000); // change toutes les 5 sec
   }
 });
 
@@ -112,4 +118,54 @@ function removeItem(index) {
 // ----------------------
 function checkout() {
   alert("Ici on branchera PayPal ensuite 😄");
+}
+
+// ----------------------
+// OUVRIR LA FICHE PRODUIT
+// ----------------------
+function viewProduct(id) {
+  // redirige vers product.html en passant l'id dans l'URL
+  window.location.href = "product.html?id=" + id;
+}
+
+// ----------------------
+// CHARGER UNE FICHE PRODUIT
+// ----------------------
+function loadProductPage() {
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get("id"), 10);
+
+  if (!id) {
+    document.getElementById("product-detail").innerHTML =
+      "<p>Produit introuvable.</p>";
+    return;
+  }
+
+  fetch("products.json?" + new Date().getTime())
+    .then((res) => res.json())
+    .then((products) => {
+      const product = products.find((p) => p.id === id);
+      const container = document.getElementById("product-detail");
+
+      if (!product) {
+        container.innerHTML = "<p>Produit introuvable.</p>";
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="product-detail-card">
+          <img src="${product.image}" alt="${product.name}">
+          <div class="product-detail-info">
+            <h1>${product.name}</h1>
+            <p class="price">${product.price}€</p>
+            <p class="desc">${product.description}</p>
+            <button onclick="addToCart(${product.id})">Ajouter au panier</button>
+            <a href="index.html" class="back-link">← Retour à la boutique</a>
+          </div>
+        </div>
+      `;
+    })
+    .catch((err) =>
+      console.error("Erreur lors du chargement de la fiche produit:", err)
+    );
 }
