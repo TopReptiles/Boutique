@@ -56,35 +56,25 @@ header nav a { color:white; text-decoration:none; margin-left:20px; font-weight:
   padding:20px;
   text-align:center;
   box-shadow:0 5px 15px rgba(0,0,0,0.1);
-  overflow: hidden; /* important pour que l'image zoom reste dans la carte */
+  overflow: hidden; /* pour le zoom */
 }
 
 .product img {
   width: 100%;
   border-radius:10px;
-  transition: transform 0.3s ease; /* animation douce */
+  transition: transform 0.3s ease;
 }
 
-/* Quand la souris passe sur la carte produit, on zoom l'image */
+/* Zoom léger au survol */
 .product:hover img {
   transform: scale(1.08);
 }
 
-
-.product img { width:100%; border-radius:10px; }
-.product h3 { font-family:'Courgette', cursive; color:#6b4c3b; }
-
-.product button {
-  background-color:#7b5e4d;
-  color:white;
-  border:none;
-  padding:10px 15px;
-  border-radius:8px;
-  cursor:pointer;
-  margin-top:10px;
+.product h3 {
   font-family:'Courgette', cursive;
+  color:#6b4c3b;
 }
-.product button:hover { background-color:#a0775f; }
+
 .product button {
   background-color:#7b5e4d;
   color:white;
@@ -114,7 +104,7 @@ footer {
 <header>
   <h1>Créations en toile de jute</h1>
   <nav>
-    <a href="#">Accueil</a>
+    <a href="index.html">Accueil</a>
     <a href="cart.html">🛒 Panier</a>
     <a href="#">Contact</a>
   </nav>
