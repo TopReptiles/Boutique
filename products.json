@@ -1,37 +1,38 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fiche produit - Créations en toile de jute</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Fiche produit</h1>
-    <nav>
-      <a href="index.html">← Retour à la boutique</a>
-      <a href="cart.html">🛒 Panier <span id="cart-count">0</span></a>
-    </nav>
-  </header>
-
-  <div class="wrapper">
-    <div id="product-detail">
-      Chargement du produit...
-    </div>
-  </div>
-
-  <!-- Lightbox pour zoom -->
-  <div class="lightbox" id="lightbox">
-    <img id="lightbox-img" src="" alt="Zoom">
-  </div>
-
-  <footer>
-    © 2025 Créations en toile de jute · Tous droits réservés
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+[
+  {
+    "id": 1,
+    "name": "Création entrée de gamme",
+    "price": 10,
+    "description": "Service simple pour découvrir nos créations sur toile de jute. Idéal pour un premier essai.",
+    "image": "images/entree.jpg",
+    "category": "Maison",
+    "badge": "Découverte"
+  },
+  {
+    "id": 2,
+    "name": "Création milieu de gamme",
+    "price": 25,
+    "description": "Création personnalisée de qualité supérieure sur toile de jute, parfaite pour offrir.",
+    "image": "images/milieu.jpg",
+    "category": "Décoration",
+    "badge": "Best-seller"
+  },
+  {
+    "id": 3,
+    "name": "Création haut de gamme",
+    "price": 50,
+    "description": "Création premium sur mesure pour vos projets sur toile de jute, finitions soignées.",
+    "image": "images/haut.jpg",
+    "category": "Décoration",
+    "badge": "Premium"
+  },
+  {
+    "id": 4,
+    "name": "Pack mariage en toile de jute",
+    "price": 80,
+    "description": "Chemins de table, marque-places et petits accessoires en toile de jute pour un mariage chaleureux.",
+    "image": "images/mariage.jpg",
+    "category": "Mariage",
+    "badge": "Nouveau"
+  }
+]
