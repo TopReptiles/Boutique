@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Création entrée de gamme",
+    "price": 10,
+    "description": "Service simple pour découvrir nos créations sur toile de jute. Idéal pour un premier essai.",
+    "image": "https://www.feelinecreation.com/wp-content/uploads/2020/07/pochon-lavande-dragee-feeline-creation-cadeau-mariage-bapteme-455x607.jpg",
+    "category": "Maison",
+    "badge": "Découverte"
+  },
+  {
+    "id": 2,
+    "name": "Création milieu de gamme",
+    "price": 25,
+    "description": "Création personnalisée de qualité supérieure sur toile de jute, parfaite pour offrir.",
+    "image": "https://aws-cf.imdoc.fr/prod/photos/8/2/6/952826/19639106/big-196391067b2.jpg?v=11",
+    "category": "Décoration",
+    "badge": "Best-seller"
+  },
+  {
+    "id": 3,
+    "name": "Création haut de gamme",
+    "price": 50,
+    "description": "Création premium sur mesure pour vos projets sur toile de jute, finitions soignées.",
+    "image": "https://www.modesettravaux.fr/wp-content/uploads/modesettravaux/2021/05/3-2-750x410.png",
+    "category": "Décoration",
+    "badge": "Premium"
+  },
+  {
+    "id": 4,
+    "name": "Pack mariage en toile de jute",
+    "price": 80,
+    "description": "Chemins de table, marque-places et petits accessoires en toile de jute pour un mariage chaleureux.",
+    "image": "https://la-boite-a-dragees.fr/wp-content/uploads/2017/01/mariage-toile-de-jute.jpg",
+    "category": "Mariage",
+    "badge": "Nouveau"
+  }
+]
