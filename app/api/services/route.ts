@@ -1,9 +1,5 @@
-import { prisma } from "../../../lib/prisma";
-export async function GET() {
-  const services = await prisma.service.findMany({
-    where: { active: true },
-    orderBy: { createdAt: "asc" },
-  });
+import { SERVICES } from "@/data/services";
 
-  return Response.json({ services });
+export async function GET() {
+  return Response.json({ services: SERVICES });
 }
