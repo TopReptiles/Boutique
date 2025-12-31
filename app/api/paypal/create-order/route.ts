@@ -1,68 +1,85 @@
-import { prisma } from "../../../../lib/prisma";
+import { NextResponse } from "next/server";
+import { findServiceById } from "@/lib/catalog";
+
+const PAYPAL_ENV = process.env.PAYPAL_ENV ?? "SANDBOX";
+const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID ?? "";
+const PAYPAL_CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET ?? "";
+const PAYPAL_CURRENCY = process.env.PAYPAL_CURRENCY ?? "EUR";
+
+function paypalBase() {
+  return PAYPAL_ENV === "PRODUCTION"
+    ? "https://api-m.paypal.com"
+    : "https://api-m.sandbox.paypal.com";
+}
 
 async function getAccessToken() {
-  const env = process.env.PAYPAL_ENV ?? "SANDBOX";
-  const base =
-    env === "LIVE" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
-
-  const clientId = process.env.PAYPAL_CLIENT_ID!;
-  const secret = process.env.PAYPAL_CLIENT_SECRET!;
-  const auth = Buffer.from(`${clientId}:${secret}`).toString("base64");
-
-  const res = await fetch(`${base}/v1/oauth2/token`, {
+  const res = await fetch(`${paypalBase()}/v1/oauth2/token`, {
     method: "POST",
     headers: {
-      Authorization: `Basic ${auth}`,
+      Authorization: `Basic ${Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_CLIENT_SECRET}`).toString("base64")}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: "grant_type=client_credentials",
   });
 
-  if (!res.ok) throw new Error("PayPal token error");
+  if (!res.ok) {
+    const t = await res.text();
+    throw new Error(`PayPal token error: ${res.status} ${t}`);
+  }
+
   const data = await res.json();
-  return { accessToken: data.access_token as string, base };
+  return data.access_token as string;
 }
 
 export async function POST(req: Request) {
-  const { cart } = await req.json();
+  try {
+    const body = await req.json();
+    const cart: { serviceId: string; quantity: number }[] = body?.cart ?? [];
 
-  const services = await prisma.service.findMany({ where: { active: true } });
-  const map = new Map(services.map((s) => [s.id, s]));
+    if (!Array.isArray(cart) || cart.length === 0) {
+      return NextResponse.json({ error: "EMPTY_CART" }, { status: 400 });
+    }
 
-  let totalCents = 0;
-  const items = (cart ?? [])
-    .map((ci: any) => {
-      const svc = map.get(ci.serviceId);
-      if (!svc) return null;
-      const qty = Math.max(1, Math.min(99, Number(ci.quantity) || 1));
+    // Calcule total à partir du catalogue statique (pas Prisma)
+    let totalCents = 0;
+    for (const it of cart) {
+      const svc = findServiceById(it.serviceId);
+      if (!svc) return NextResponse.json({ error: "SERVICE_NOT_FOUND", serviceId: it.serviceId }, { status: 400 });
+      const qty = Math.max(1, Math.min(99, Number(it.quantity ?? 1)));
       totalCents += svc.priceCents * qty;
-      return { svc, qty };
-    })
-    .filter(Boolean);
+    }
 
-  if (!items.length) return Response.json({ error: "EMPTY_CART" }, { status: 400 });
+    const accessToken = await getAccessToken();
 
-  const currency = process.env.PAYPAL_CURRENCY ?? "EUR";
-  const value = (totalCents / 100).toFixed(2);
+    const total = (totalCents / 100).toFixed(2);
 
-  const { accessToken, base } = await getAccessToken();
+    const createRes = await fetch(`${paypalBase()}/v2/checkout/orders`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        intent: "CAPTURE",
+        purchase_units: [
+          {
+            amount: {
+              currency_code: PAYPAL_CURRENCY,
+              value: total,
+            },
+          },
+        ],
+      }),
+    });
 
-  const ppRes = await fetch(`${base}/v2/checkout/orders`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      intent: "CAPTURE",
-      purchase_units: [{ amount: { currency_code: currency, value } }],
-    }),
-  });
+    const data = await createRes.json();
 
-  const ppData = await ppRes.json();
-  if (!ppRes.ok) {
-    return Response.json({ error: "PAYPAL_CREATE_FAILED", details: ppData }, { status: 500 });
+    if (!createRes.ok) {
+      return NextResponse.json({ error: "PAYPAL_CREATE_FAILED", details: data }, { status: 500 });
+    }
+
+    return NextResponse.json({ id: data.id });
+  } catch (e: any) {
+    return NextResponse.json({ error: "SERVER_ERROR", message: e?.message ?? "unknown" }, { status: 500 });
   }
-
-  return Response.json({ id: ppData.id });
 }
